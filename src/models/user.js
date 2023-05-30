@@ -7,7 +7,7 @@ const emailRegexp =
 
 const userSchema = new Schema(
   {
-    name: {
+    username: {
       type: String,
       required: true,
     },
@@ -32,13 +32,13 @@ const userSchema = new Schema(
 userSchema.post("save", handleMongooseError);
 
 const registerSchema = Joi.object({
-  name: Joi.string().required(),
+  username: Joi.string().required(),
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
 });
 
 const loginSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required(),
+  username: Joi.string().required(),
   password: Joi.string().min(6).required(),
 });
 

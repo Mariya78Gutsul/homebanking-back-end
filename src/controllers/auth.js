@@ -17,14 +17,14 @@ const register = async (req, res) => {
   const hashPassword = await bcrypt.hash(password, 10);
   const result = await User.create({ ...req.body, password: hashPassword });
   res.status(201).json({
-    name: result.name,
+    username: result.username,
     email: result.email,
   });
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
+  const { username, password } = req.body;
+  const user = await User.findOne({ username });
   if (!user) {
     throw HttpError(401, "Email or password invalid");
   }
@@ -43,9 +43,9 @@ const login = async (req, res) => {
 };
 
 const getCurrent = async (req, res) => {
-  const { name, email } = req.user;
+  const { username, email } = req.user;
   res.json({
-    name,
+    username,
     email,
   });
 };
